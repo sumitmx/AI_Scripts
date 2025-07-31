@@ -1,0 +1,16 @@
+{
+    "status": "",
+    "messages": [],
+    "data": {
+        "overall_status": "Failed",
+        "status": {
+            "BulkUninstaller": "failed"
+        },
+        "status_message": {
+            "BulkUninstaller": "Exception occurred: eval() arg 1 must be a string, bytes or code object"
+        },
+        "logs": {
+            "BulkUninstaller": "eval() arg 1 must be a string, bytes or code object"
+        }
+    }
+}
