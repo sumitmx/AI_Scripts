@@ -1,0 +1,208 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sumit's Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+        #chat-box { border: 1px solid #ccc; padding: 10px; height: 400px; overflow-y: auto; margin-bottom: 10px; }
+        .user { color: blue; margin: 5px 0; }
+        .bot { color: green; margin: 5px 0; }
+        input, button { padding: 10px; width: 70%; }
+        button { width: 25%; margin-left: 5%; }
+    </style>
+</head>
+<body>
+    <h2>Sumit's Chatbot</h2>
+
+    <div id="chat-box"></div>
+
+    <form id="chat-form">
+        <input type="text" id="topic" name="topic" placeholder="Type your message..." autocomplete="off" required>
+        <button type="submit">Send</button>
+    </form>
+
+    <script>
+        const form = document.getElementById("chat-form");
+        const input = document.getElementById("topic");
+        const chatBox = document.getElementById("chat-box");
+
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const topic = input.value.trim();
+            if (!topic) return;
+
+            // Add user message to chat
+            const userMessage = document.createElement("div");
+            userMessage.classList.add("user");
+            userMessage.innerText = "You: " + topic;
+            chatBox.appendChild(userMessage);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Send to backend
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `topic=${encodeURIComponent(topic)}`
+            });
+
+            const data = await response.json();
+
+            // Add bot reply to chat
+            const botMessage = document.createElement("div");
+            botMessage.classList.add("bot");
+            botMessage.innerText = "Bot: " + (data.response || data.error);
+            chatBox.appendChild(botMessage);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            input.value = "";
+        });
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sumit's Chatbot</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        #chat-box {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #fefefe;
+            margin-bottom: 15px;
+        }
+
+        .user, .bot {
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 15px;
+            max-width: 80%;
+            line-height: 1.5;
+        }
+
+        .user {
+            background-color: #dcf8c6;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .bot {
+            background-color: #e2e2e2;
+            margin-right: auto;
+        }
+
+        #chat-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        #topic {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+            }
+
+            #chat-box {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🌟 Sammy's Chatbot 🌟</h2>
+
+        <div id="chat-box"></div>
+
+        <form id="chat-form">
+            <input type="text" id="topic" name="topic" placeholder="Type your message..." autocomplete="off" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("chat-form");
+        const input = document.getElementById("topic");
+        const chatBox = document.getElementById("chat-box");
+
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const topic = input.value.trim();
+            if (!topic) return;
+
+            // Display user message
+            const userMessage = document.createElement("div");
+            userMessage.classList.add("user");
+            userMessage.innerText = topic;
+            chatBox.appendChild(userMessage);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Call backend
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `topic=${encodeURIComponent(topic)}`
+            });
+
+            const data = await response.json();
+
+            // Display bot response
+            const botMessage = document.createElement("div");
+            botMessage.classList.add("bot");
+            botMessage.innerText = data.response || data.error || "No response";
+            chatBox.appendChild(botMessage);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            input.value = "";
+        });
+    </script>
+</body>
+</html>
